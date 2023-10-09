@@ -1,0 +1,10 @@
+trigger ContactsTrigger on Contact (after insert, after update, after delete, after undelete) {
+    List<Contact> newContactsList = Trigger.new;
+    Map<Id, Contact> oldContactsMap = Trigger.oldMap;
+
+    if (Trigger.isInsert || Trigger.isUpdate || Trigger.isUndelete) {
+        TriggerHandler_AccountContactsCount.handleContactsCount(newContactsList, oldContactsMap);
+    } else if (Trigger.isDelete) {
+        // TODO 
+    }
+}
